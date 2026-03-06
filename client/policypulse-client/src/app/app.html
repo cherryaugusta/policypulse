@@ -1,0 +1,23 @@
+<main class="wrap">
+  <h1>PolicyPulse (Day Zero)</h1>
+
+  <section class="card">
+    <h2>Ops</h2>
+    <button (click)="checkHealth()">Check Health</button>
+    @if (health(); as h) {
+      <pre>{{ h | json }}</pre>
+    }
+  </section>
+
+  <section class="card">
+    <h2>Decision API</h2>
+    <button (click)="submitDemoDecision()">Submit Demo Decision</button>
+    @if (lastDecision(); as d) {
+      <pre>{{ d | json }}</pre>
+    }
+  </section>
+
+  @if (error(); as e) {
+    <p class="error">{{ e }}</p>
+  }
+</main>
