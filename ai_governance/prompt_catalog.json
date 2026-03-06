@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "catalog_name": "PolicyPulse Prompt Catalog",
+  "governance": {
+    "owner_team": "governance",
+    "change_control": {
+      "required_reviewers": ["security", "ml-governance"],
+      "approval_required": true
+    },
+    "pii_policy": {
+      "raw_pii_allowed": false,
+      "scrub_strategy": "tokenize_and_hash",
+      "denylist_fields": ["name", "email", "phone", "address", "dob", "national_id"]
+    }
+  },
+  "prompts": [
+    {
+      "prompt_id": "decision_rationale",
+      "version": "1.0.0",
+      "status": "approved",
+      "owner": "governance",
+      "purpose": "Draft decision rationale and reason codes grounded strictly to supplied evidence. If evidence is insufficient, output NEEDS_REVIEW.",
+      "inputs": {
+        "evidence": "string (structured evidence, scrubbed)",
+        "policy_rules": "string (policy excerpt, no secrets)"
+      },
+      "output_contract": {
+        "format": "json",
+        "fields": [
+          { "name": "outcome", "type": "approve|review|reject|NEEDS_REVIEW" },
+          { "name": "reason_codes", "type": "string[]" },
+          { "name": "confidence", "type": "number (0..1)" },
+          { "name": "citations", "type": "string[] (evidence ids)" }
+        ]
+      },
+      "template": "You are PolicyPulse. Use ONLY the provided EVIDENCE and POLICY RULES. If insufficient evidence, set outcome=NEEDS_REVIEW.\nReturn strict JSON with keys: outcome, reason_codes, confidence, citations.\nEVIDENCE:\n{{evidence}}\n\nPOLICY RULES:\n{{policy_rules}}",
+      "guardrails": {
+        "require_citations": true,
+        "refuse_without_evidence": true,
+        "max_output_tokens": 400
+      },
+      "created_at": "2026-03-01T00:00:00Z",
+      "last_reviewed_at": "2026-03-01T00:00:00Z"
+    }
+  ]
+}
