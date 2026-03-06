@@ -1,59 +1,223 @@
-# PolicypulseClient
+# PolicyPulse — AI Governance + Audit Ledger for Real Decisions
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.1.
+**Educational Purpose & Skills Showcase:** This repository is a portfolio project designed to demonstrate production-grade engineering practices including security-by-design, AI governance, observability, and enterprise-grade type safety. It is not intended for real-world regulatory use without independent security review, legal review, and domain validation.
 
-## Development server
+---
 
-To start a local development server, run:
+## Overview
 
-```bash
-ng serve
+PolicyPulse is a RegTech-style decisioning service that records an audit-grade provenance trail for each decision.
+
+The current **Day Zero implementation** demonstrates:
+
+- Django backend with REST endpoints
+- OpenAPI documentation via drf-spectacular
+- Health endpoint for operational readiness
+- Angular frontend using strict TypeScript
+- Typed API contracts between frontend and backend
+- AI governance scaffolding for prompt management and evaluation
+
+---
+
+## Architecture
+
+### Backend
+
+- Django
+- Django REST Framework
+- drf-spectacular (OpenAPI schema + Redoc)
+- SQLite for local development
+- PostgreSQL-ready via `DATABASE_URL`
+- Redis-ready cache configuration
+
+### Frontend
+
+- Angular
+- strict TypeScript configuration
+- standalone Angular bootstrap
+- typed service layer calling the API
+
+### Governance and Operations
+
+- pre-commit hooks
+- secret scanning mock
+- dependency vulnerability scanning
+- prompt catalog scaffolding
+- evaluation artifact scaffolding
+- correlation ID middleware
+- health check endpoint
+
+---
+
+## Repository Layout
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+policypulse/
+│
+├── api/                  # Django backend
+├── client/               # Angular frontend
+├── ai_governance/        # Prompt catalog + evaluation artifacts
+├── docs/adr/             # Architecture decision records
+├── infra/                # Docker / Kubernetes scaffolding
+├── scripts/              # Developer automation scripts
+│
+├── docker-compose.yml
+└── README.md
 
-## Code scaffolding
+````
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+---
 
-```bash
-ng generate component component-name
+## Local Development
+
+### Backend
+
+Run the Django backend:
+
+```powershell
+cd api
+.\.venv\Scripts\Activate.ps1
+python manage.py makemigrations
+python manage.py migrate
+python manage.py test
+python manage.py runserver
+````
+
+Backend URLs:
+
+```
+http://127.0.0.1:8000/api/docs/redoc/
+http://127.0.0.1:8000/api/ops/health
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
+### Frontend
+
+Run the Angular client:
+
+```powershell
+cd client\policypulse-client
+npm run lint
+ng serve --proxy-config proxy.conf.json
 ```
 
-## Building
+Frontend URL:
 
-To build the project run:
-
-```bash
-ng build
+```
+http://localhost:4200
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## Current Day Zero Behavior
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Decision endpoint
 
-```bash
-ng test
+```
+POST /api/decisions/submit
 ```
 
-## Running end-to-end tests
+Current behavior:
 
-For end-to-end (e2e) testing, run:
+* accepts a typed JSON payload
+* writes a decision record
+* returns deterministic outcome `"review"`
+* includes provenance data
+* includes a correlation ID
 
-```bash
-ng e2e
+Example response:
+
+```json
+{
+  "decision_id": "...",
+  "product": "loan_precheck",
+  "applicant_id": "applicant-token-123",
+  "outcome": "review",
+  "reason_codes": ["INSUFFICIENT_EVIDENCE"]
+}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+### Health endpoint
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```
+GET /api/ops/health
+```
+
+Checks:
+
+* database connectivity
+* Redis connectivity
+
+Example response:
+
+```json
+{
+  "service": "policypulse-api",
+  "database": true,
+  "redis": false
+}
+```
+
+A `503` status may occur locally if Redis is not running.
+
+---
+
+## Security-by-Design
+
+The repository demonstrates several defensive engineering practices:
+
+* pre-commit hooks blocking obvious credential patterns
+* dependency scanning using `pip-audit` and `safety`
+* correlation ID tracing for requests
+* configurable environment variables for secrets and infrastructure
+
+---
+
+## AI Governance
+
+The repository includes governance scaffolding:
+
+* prompt catalog
+* evaluation artifacts
+* PII restrictions
+* governance ownership and review placeholders
+
+These files demonstrate how LLM systems can be managed with auditability and structured governance.
+
+---
+
+## Current Project Status
+
+Day Zero includes:
+
+* monorepo scaffold
+* Django API
+* Angular frontend
+* API documentation
+* typed contracts
+* Git workflow
+* governance scaffolding
+* developer security tooling
+
+---
+
+## Planned Next Steps
+
+Future improvements include:
+
+* Docker-based local infrastructure
+* PostgreSQL and Redis containers
+* improved health semantics for local demos
+* CI/CD pipeline
+* automated prompt evaluation
+* GitHub publishing
+
+---
+
+## License
+
+This repository is intended for educational and portfolio purposes.
