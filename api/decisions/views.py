@@ -1,5 +1,6 @@
 import uuid
 
+from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -8,6 +9,18 @@ from .models import Decision
 from .serializers import DecisionCreateSerializer, DecisionSerializer
 
 
+@extend_schema(
+    request=DecisionCreateSerializer,
+    responses={
+        201: OpenApiResponse(
+            response=DecisionSerializer,
+            description="Decision created successfully.",
+        )
+    },
+    summary="Submit decision",
+    description="Submit applicant data for a Day Zero demo decision.",
+    tags=["decisions"],
+)
 class SubmitDecisionView(APIView):
     def post(self, request):
         serializer = DecisionCreateSerializer(data=request.data)
