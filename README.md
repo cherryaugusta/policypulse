@@ -19,6 +19,32 @@ The current **Day Zero implementation** demonstrates:
 
 ---
 
+## Why This Repository Matters
+
+PolicyPulse is designed to demonstrate how governance-aware AI systems can be built with strong engineering discipline from the start. It combines backend API delivery, typed frontend integration, observability, and governance scaffolding into a single portfolio-grade repository.
+
+This makes the project useful as both:
+
+- a software engineering portfolio artifact
+- a RegTech-style architecture demonstration
+- a reference for governance-aware application design
+- a showcase of secure-by-default development practices
+
+---
+
+## Core Engineering Signals
+
+This repository highlights the following engineering themes:
+
+- **typed frontend-backend contracts** for safer integration
+- **OpenAPI-first backend delivery** for documentation and contract clarity
+- **health-aware operational design** through dependency checks
+- **governance-aware AI scaffolding** for prompts and evaluation artifacts
+- **security-by-design practices** including pre-commit and scanning workflows
+- **portfolio-grade documentation** supported by screenshots and repository structure
+
+---
+
 ## Screenshots
 
 ### Frontend Application
@@ -87,8 +113,39 @@ policypulse/
 ├── screenshots/             # README screenshots
 │
 ├── docker-compose.yml
+├── LICENSE
 └── README.md
 ````
+
+---
+
+## Technology Summary
+
+### Backend stack
+
+* Django
+* Django REST Framework
+* drf-spectacular
+* SQLite for local development
+* PostgreSQL-ready configuration
+* Redis-ready configuration
+
+### Frontend stack
+
+* Angular
+* TypeScript
+* strict typing
+* standalone component bootstrap
+* proxy-based local API integration
+
+### Engineering workflow
+
+* pre-commit
+* dependency scanning
+* governance artifacts
+* ADR-oriented documentation
+* typed contracts
+* health and observability signals
 
 ---
 
@@ -130,6 +187,26 @@ Frontend URL:
 ```text
 http://localhost:4200
 ```
+
+### Stop a running local process
+
+If a terminal command is running and you need to stop it, press:
+
+```text
+CTRL + C
+```
+
+---
+
+## Recommended Local Verification
+
+After starting backend and frontend, verify the following:
+
+* the Angular application loads in the browser
+* the Redoc page renders successfully
+* the health endpoint responds
+* the frontend can communicate with the backend through the proxy
+* typed request and response handling works correctly
 
 ---
 
@@ -186,6 +263,30 @@ A `503` status may occur locally if Redis is not running.
 
 ---
 
+## API Surface
+
+### Documentation
+
+```text
+GET /api/docs/redoc/
+```
+
+### Health
+
+```text
+GET /api/ops/health
+```
+
+### Decisions
+
+```text
+POST /api/decisions/submit
+```
+
+This API surface demonstrates a minimal but coherent Day Zero decisioning system with typed contracts, audit-oriented outputs, and operational visibility.
+
+---
+
 ## Security-by-Design
 
 The repository demonstrates several defensive engineering practices:
@@ -194,6 +295,10 @@ The repository demonstrates several defensive engineering practices:
 * dependency scanning using `pip-audit` and `safety`
 * correlation ID tracing for requests
 * configurable environment variables for secrets and infrastructure
+
+### Security posture note
+
+This repository is portfolio-grade and engineering-focused. It demonstrates secure development patterns, but it is not represented as production-certified or regulator-approved software.
 
 ---
 
@@ -207,6 +312,32 @@ The repository includes governance scaffolding:
 * governance ownership and review placeholders
 
 These files demonstrate how LLM systems can be managed with auditability and structured governance.
+
+### Governance intent
+
+The governance layer is included to show that AI-enabled systems should not be treated as only model or API problems. They should also include:
+
+* ownership
+* reviewability
+* artifact traceability
+* controlled prompt evolution
+* evaluation evidence
+
+---
+
+## Operational Readiness Notes
+
+The repository includes foundational operational signals:
+
+* documented API surface
+* explicit health endpoint
+* dependency-aware health behavior
+* typed frontend integration
+* correlation ID support
+* PostgreSQL-ready configuration
+* Redis-aware runtime behavior
+
+This is appropriate for a Day Zero repository that aims to show sound engineering direction rather than claim complete enterprise readiness.
 
 ---
 
@@ -238,8 +369,47 @@ Future improvements include:
 
 ---
 
-## License
+## Suggested Repository Metadata
 
-This repository is intended for educational and portfolio purposes.
+For a stronger GitHub presentation, use metadata such as:
+
+* **Repository name:** `policypulse`
+* **Description:** `AI governance and audit-ledger decisioning service with Django, Angular, OpenAPI, strict typing, and security-aware engineering`
+* **Topics:** `django`, `angular`, `typescript`, `openapi`, `drf-spectacular`, `regtech`, `ai-governance`, `audit-trail`, `observability`, `security`, `policy-engineering`
 
 ---
+
+## Notes on Secrets
+
+Do not commit:
+
+* real API keys
+* real credentials
+* production infrastructure secrets
+* private environment files containing sensitive values
+
+Use environment-variable templates and safe local placeholders for development.
+
+---
+
+## Summary
+
+PolicyPulse is a portfolio-grade RegTech-style decisioning system that demonstrates:
+
+* Django API delivery
+* Angular strict-type frontend integration
+* OpenAPI-driven documentation
+* dependency-aware operational health checks
+* AI governance scaffolding
+* security-aware development workflows
+* audit-oriented decision provenance patterns
+
+---
+
+## License
+
+This project is licensed under the MIT License.
+
+Copyright (c) 2026 Cherry Augusta
+
+See the [LICENSE](./LICENSE) file for full details.
